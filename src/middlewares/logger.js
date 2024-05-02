@@ -2,6 +2,8 @@ const winston = require("winston");
 const morgan = require("morgan");
 const { combine, timestamp, json } = winston.format;
 
+// We can store all the access, error, info and other types of logs in separate files.
+// The below configuration stores all types of logs in a single file called combined.log
 const logger = winston.createLogger({
     level: "http",
     defaultMeta: {

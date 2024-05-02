@@ -1,16 +1,19 @@
-// Used to catch sync as well as async errors to prevent app crashes
+// Express is used to handle all the http routes
+const express = require("express");
+const cors = require("cors");
+
+// Used to catch async errors to prevent app crashes
 require("express-async-errors");
 
 // dotenv module loads all values from the .env file and makes them avialable in process.env object globally
 require("dotenv").config();
 
-// Connect to the database or else stop the further execution if connection is not made
-require("./src/config/database");
-
-// Express is used to handle all the http routes
-const express = require("express");
 const app = express();
 app.use(express.json());
+app.use(cors(['http://localhost:3000']));
+
+// Connect to the database or else stop the further execution if connection is not made
+require("./src/config/database");
 
 // Moragan middleware to log all the incoming http requests
 const { morganMiddleware, logger } = require("./src/middlewares/logger");

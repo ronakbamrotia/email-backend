@@ -7,7 +7,7 @@ const validateRequest = [
         .notEmpty().escape().withMessage("Email template cannot be empty"),
     body("subject")
         .exists().withMessage("Subject is required").bail()
-        .notEmpty().escape().isString().withMessage("Subject cannot be empty"),
+        .notEmpty().escape().withMessage("Subject cannot be empty"),
     body("delayed_send")
         .optional({ nullable: true })
         .isISO8601().withMessage("Provide valid date value"),
@@ -33,9 +33,9 @@ const validateRequest = [
     body("email.*")
         .not().isArray().isEmail().withMessage("Invalid email value"),
     body("bcc")
-        .isArray({ min: 1 }).withMessage("Atleast one email is required"),
+        .isArray({ min: 1 }).withMessage("Atleast one bcc email is required"),
     body("bcc.*")
-        .not().isArray().isEmail().withMessage("Invalid email value"),
+        .not().isArray().isEmail().withMessage("Invalid bcc email value"),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

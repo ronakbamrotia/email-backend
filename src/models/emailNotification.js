@@ -1,6 +1,9 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
+// Skipped the table migration part for now which can be done using sequelize-cli
+// Created the table structure manually in the database
+
 // Defining the database table schema 
 const emailNotification = sequelize.define("email_notification", {
     id: {
@@ -50,8 +53,4 @@ const emailNotification = sequelize.define("email_notification", {
     updatedAt: "updated_at"
 });
 
-(async () => {
-    await emailNotification.sync({ force: false });
-})();
-
-module.exports = emailNotification
+module.exports = emailNotification;
