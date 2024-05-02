@@ -10,7 +10,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(express.json());
-app.use(cors(['http://localhost:3000']));
+app.use(cors(["http://localhost:3000"]));
 
 // Connect to the database or else stop the further execution if connection is not made
 require("./src/config/database");

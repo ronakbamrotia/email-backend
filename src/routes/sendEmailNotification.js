@@ -44,7 +44,8 @@ router.post(
 
             let delay = 0;
             if (req.body.delayed_send) {
-                delay = Date.parse(new Date(req.body.delayed_send).toUTCString()) - Date.parse(new Date().toUTCString());
+                const delayedDate = req.body.delayed_send + (req.body.delayed_send.slice(-1) === 'Z' ? '' : 'Z');
+                delay = Date.parse(new Date(delayedDate).toUTCString()) - Date.parse(new Date().toUTCString());
                 // If backdated datetime is passed send the email immediately without any delay
                 if (delay <= 0) {
                     delay = 0
@@ -73,7 +74,7 @@ router.post(
             return res.status(202).json({ "message": "Email queued for delivery at specified date and time" });
         } catch (e) {
             logger.error("incoming-request-error", { url: "/api/send-email-notification", error: e.message });
-            return res.status(500).json({ "message": "Error in email delivery" });
+            return res.status(500).json({ "message": "Error in email delivery" + e.message });
         }
     }
 );
